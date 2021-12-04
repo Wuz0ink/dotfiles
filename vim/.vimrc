@@ -18,7 +18,13 @@ Plug 'tpope/vim-sensible' " sensible defaults
 Plug 'tpope/vim-fugitive' " git integration
 Plug 'itchyny/lightline.vim'
 Plug 'joshdick/onedark.vim' " colorscheme
+Plug 'doums/darcula'
+Plug 'ryanoasis/vim-devicons'
+Plug 'joshdick/onedark.vim'
+"Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " syntax highlight & indent
+Plug 'vim-test/vim-test'
+Plug 'puremourning/vimspector' " Debugger
 call plug#end()
 
 "" sane defaults
@@ -37,7 +43,6 @@ set fileformats=unix,dos,mac
 set shell=$SHELL
 set relativenumber
 
-
 set nobackup
 set noswapfile
 
@@ -47,15 +52,41 @@ set ignorecase
 set smartcase
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlitem,.git
 
+source $HOME/.config/nvim/themes/onedark.vim
+
+let test#neovim#term_position = "vert"
+
 " colorscheme
-set background=dark
-colorscheme onedark
+"set background=dark
+"set termguicolors
+" colorscheme onedark
+"colorscheme darcula
+
+hi UncoveredLine guifg=#ffaa00 guibg=#ffaa00
+
+function! CocCurrentFunction()
+  return get(b:, 'coc_current_function', '')
+endfunction
+
 let g:lightline = {
-  \ 'colorscheme': 'wombat',
-  \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified' ] ],
-  \ }
-\ }
+      \ 'colorscheme': 'onedark',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'cocstatus','filename', 'readonly', 'absolutepath', 'modified' ] ],
+      \ },
+      \ 'component_function':{
+      \   'cocstatus': 'coc#status',
+      \   'currentfunction': 'CocCurrentFunction'
+      \ },
+      \ }
+
+set guifont=DroidSansMono\ Nerd\ Font\ 11
+
+" Vimspector
+let g:vimspector_enable_mappings = 'HUMAN'
+let g:vimspector_sidebar_width = 80
+let g:vimspector_bottombar_height = 20
+nmap <F1> :CocCommand java.debug.vimspector.start<CR>
+
 
 " disable blinking cursor
 set gcr=a:blinkon0
@@ -93,8 +124,8 @@ endfunction
 
 "" autocmd rules
 augroup qf
-    autocmd!
-    autocmd FileType qf set nobuflisted " exclude quickfix list from bprev, bnext
+  autocmd!
+  autocmd FileType qf set nobuflisted " exclude quickfix list from bprev, bnext
 augroup END
 
 augroup vimrc-sync-fromstart
@@ -165,9 +196,9 @@ function! s:build_quickfix_list(lines)
 endfunction
 
 let g:fzf_action = {
-  \ 'ctrl-q': function('s:build_quickfix_list'),
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
+      \ 'ctrl-q': function('s:build_quickfix_list'),
+      \ 'ctrl-x': 'split',
+      \ 'ctrl-v': 'vsplit' }
 
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 
@@ -190,6 +221,20 @@ noremap <leader>w :bn<CR>
 noremap YY "+y<CR>
 noremap <leader>p "+gP<CR>
 noremap XX "+x<CR>
+
+" test
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+
+" make test commands execute using dispatch.vim
+let test#strategy = "neovim"
+let test#java#runner = 'gradletest'
+if has('nvim')
+  tmap <C-o> <C-\><C-n>
+endif
 
 " git log & blame (for those "that couldn't have been me" moments)
 noremap <leader>gb :Gblame<CR>
@@ -265,11 +310,11 @@ nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 if IsWSL()
   let s:clip = '/mnt/c/Windows/System32/clip.exe'
   if executable(s:clip)
-      augroup WSLYank
-          autocmd!
-          " yank to windows clipboard only if operator is y
-          autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-      augroup END
+    augroup WSLYank
+      autocmd!
+      " yank to windows clipboard only if operator is y
+      autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+    augroup END
   endif
 endif
 
