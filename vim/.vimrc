@@ -3,6 +3,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'preservim/nerdcommenter'
 Plug 'airblade/vim-gitgutter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Yggdroot/indentLine' " display indentation lines
@@ -19,12 +20,16 @@ Plug 'tpope/vim-fugitive' " git integration
 Plug 'itchyny/lightline.vim'
 Plug 'joshdick/onedark.vim' " colorscheme
 Plug 'doums/darcula'
-Plug 'ryanoasis/vim-devicons'
-Plug 'joshdick/onedark.vim'
 "Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " syntax highlight & indent
+Plug 'psliwka/vim-smoothie'
 Plug 'vim-test/vim-test'
-Plug 'puremourning/vimspector' " Debugger
+Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python'}
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'romgrk/barbar.nvim'
+Plug 'ryanoasis/vim-devicons'
+
 call plug#end()
 
 "" sane defaults
