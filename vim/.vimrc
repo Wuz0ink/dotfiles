@@ -2,6 +2,7 @@ call plug#begin(expand('~/.vim/plugged'))
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tpope/vim-commentary'
+Plug 'rcarriga/nvim-notify'
 Plug 'tpope/vim-surround'
 Plug 'preservim/nerdcommenter'
 Plug 'airblade/vim-gitgutter'
@@ -29,7 +30,6 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'romgrk/barbar.nvim'
 Plug 'ryanoasis/vim-devicons'
-
 call plug#end()
 
 "" sane defaults
@@ -61,6 +61,8 @@ source $HOME/.config/nvim/themes/onedark.vim
 
 let test#neovim#term_position = "vert"
 
+
+
 " colorscheme
 "set background=dark
 "set termguicolors
@@ -74,15 +76,16 @@ function! CocCurrentFunction()
 endfunction
 
 let g:lightline = {
-      \ 'colorscheme': 'onedark',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'cocstatus','filename', 'readonly', 'absolutepath', 'modified' ] ],
-      \ },
-      \ 'component_function':{
-      \   'cocstatus': 'coc#status',
-      \   'currentfunction': 'CocCurrentFunction'
-      \ },
-      \ }
+\ 'colorscheme': 'onedark',
+\ 'active': {
+\   'left': [ [ 'mode', 'paste' ],['gitbranch'], [ 'cocstatus','filename', 'readonly', 'absolutepath', 'modified' ] ],
+\ },
+\ 'component_function':{
+\   'cocstatus': 'coc#status',
+\   'currentfunction': 'CocCurrentFunction',
+\   'gitbranch': 'FugitiveHead'
+\ },
+\ }
 
 set guifont=DroidSansMono\ Nerd\ Font\ 11
 
@@ -91,7 +94,6 @@ let g:vimspector_enable_mappings = 'HUMAN'
 let g:vimspector_sidebar_width = 80
 let g:vimspector_bottombar_height = 20
 nmap <F1> :CocCommand java.debug.vimspector.start<CR>
-
 
 " disable blinking cursor
 set gcr=a:blinkon0
@@ -129,8 +131,8 @@ endfunction
 
 "" autocmd rules
 augroup qf
-  autocmd!
-  autocmd FileType qf set nobuflisted " exclude quickfix list from bprev, bnext
+    autocmd!
+    autocmd FileType qf set nobuflisted " exclude quickfix list from bprev, bnext
 augroup END
 
 augroup vimrc-sync-fromstart
@@ -201,9 +203,9 @@ function! s:build_quickfix_list(lines)
 endfunction
 
 let g:fzf_action = {
-      \ 'ctrl-q': function('s:build_quickfix_list'),
-      \ 'ctrl-x': 'split',
-      \ 'ctrl-v': 'vsplit' }
+  \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
 
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 
@@ -311,15 +313,21 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " coc command list
 nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 
+
+" Coc-restClient
+noremap <silent><space>h :CocCommand rest-client.request<CR>
+
+
+
 " WSL yank support
 if IsWSL()
   let s:clip = '/mnt/c/Windows/System32/clip.exe'
   if executable(s:clip)
-    augroup WSLYank
-      autocmd!
-      " yank to windows clipboard only if operator is y
-      autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-    augroup END
+      augroup WSLYank
+          autocmd!
+          " yank to windows clipboard only if operator is y
+          autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+      augroup END
   endif
 endif
 
