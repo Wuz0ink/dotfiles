@@ -22,7 +22,3 @@ https://github.com/TheScrawl/xcursor-breeze-neutral
 Run to `sudo cp -r xcursor-breeze-neutral /usr/share/icons/`
 
 Select via `lxappearance`
-
-# Firefox
-
-Configure fonts and don't allow pages to use their own.
