@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# install other required applications
+sudo xbps-install -Sy $(cat $HOME/.config/yadm/xbps-packages | xargs)
+
+# enable system-wide services
+sudo ln -s /etc/sv/dbus /var/service
+sudo ln -s /etc/sv/seatd /var/service
+sudo ln -s /etc/sv/pipewire /var/service
+sudo ln -s /etc/sv/tlp /var/service
+sudo ln -s /etc/sv/wpa_supplicant /var/service
+sudo ln -s /etc/sv/dhcpcd /var/service
+sudo ln -s /etc/sv/cronie /var/service
+sudo ln -s /etc/sv/bluetoothd /var/service
+
+# by default, enable all user services
+mkdir -p $HOME/service
+ln -s $HOME/.config/sv/* $HOME/service/
+
+# install fisher
+fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
+
+# install z
+fish -c "fisher install jethrokuan/z"
+
+# install fzf
+fish -c "fisher install jethrokuan/fzf"
+
+# install sdkman fish support
+fish -c "fisher install reitzig/sdkman-for-fish@1.4.0"
+
+# install sdkman
+fish -c "curl -s \"https://get.sdkman.io\" | bash"
+
+# install packer.nvim
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+# install rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# install node
+curl -sfLS https://install-node.vercel.app | bash
