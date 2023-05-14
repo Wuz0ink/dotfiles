@@ -40,4 +40,4 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # install node
-curl -sfLS https://install-node.vercel.app | bash
+# curl -sfLS https://install-node.vercel.app | bash
