@@ -23,7 +23,7 @@ fish -c "fisher install jethrokuan/z"
 fish -c "fisher install jethrokuan/fzf"
 
 #install sdkman fish support
-fish -c "fisher install reitzig/sdkman-for-fish@1.4.0"
+fish -c "fisher install reitzig/sdkman-for-fish@v2.0.0"
 
 #install sdkman
 fish -c "curl -s \"https://get.sdkman.io\" | bash"
