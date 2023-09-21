@@ -6,7 +6,7 @@ sleep 1s
 
 # setup display
 export DISPLAY=:0
-export XAUTHORITY=/home/linde/.Xauthority
+export XAUTHORITY=/$HOME/.Xauthority
 
 # connect displays
 xrandr --auto
