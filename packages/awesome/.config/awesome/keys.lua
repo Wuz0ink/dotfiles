@@ -456,6 +456,20 @@ keys.globalkeys = gears.table.join(
 )
 
 
+   -- =========================================
+   -- LOCK SCREEN
+   -- =========================================
+
+   -- restore minimized client
+   awful.key({modkey, "Shift"}, "l",
+      function()
+        awful.spawn("i3lock-fancy")
+      end,
+      {description = "screenlock", group = "client"}
+   )
+)
+
+
 -- ===================================================================
 -- Client Key bindings
 -- ===================================================================
