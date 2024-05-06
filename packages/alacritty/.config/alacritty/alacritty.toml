@@ -1,0 +1,13 @@
+import = ["/home/anton/.config/alacritty/catppuccin/catppuccin-mocha.toml"]
+
+[font]
+size = 8
+
+[font.normal]
+family = "Hack"
+style = "Regular"
+
+[[keyboard.bindings]]
+action = "SpawnNewInstance"
+key = "Return"
+mods = "Control|Shift"
