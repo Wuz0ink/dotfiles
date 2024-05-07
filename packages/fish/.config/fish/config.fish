@@ -80,8 +80,6 @@ set -U EDITOR nvim
 set -x PATH $PATH $HOME/.cargo/bin
 
 # Node bin
-# set -x PATH $PATH /home/linde/.local/share/node-v12.18.2-linux-x64/bin
-# $HOME/.local/bin
 set -x PATH $PATH $HOME/.local/bin
 set -x PATH $PATH $HOME/.npm-global/bin
 
