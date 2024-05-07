@@ -43,6 +43,10 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=0
 set expandtab
+
+" for java files, 4 spaces
+autocmd Filetype java setlocal tabstop=4 shiftwidth=4
+
 set fileformats=unix,dos,mac
 set shell=$SHELL
 set relativenumber
@@ -97,6 +101,7 @@ nmap <F1> :CocCommand java.debug.vimspector.start<CR>
 " disable blinking cursor
 set gcr=a:blinkon0
 
+command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 
 "" misc
 
@@ -315,7 +320,6 @@ nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 
 " Coc-restClient
 noremap <silent><space>h :CocCommand rest-client.request<CR>
-
 
 
 " WSL yank support
