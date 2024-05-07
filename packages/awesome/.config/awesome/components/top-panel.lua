@@ -19,6 +19,7 @@ local dpi = beautiful.xresources.apply_dpi
 -- import widgets
 local task_list = require("widgets.task-list")
 local tag_list = require("widgets.tag-list")
+local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
 
 -- define module table
 local top_panel = {}
@@ -48,6 +49,7 @@ top_panel.create = function(s)
         layout = wibox.layout.fixed.horizontal,
         tag_list.create(s),
         task_list.create(s),
+        battery_widget(),
       },
       require("widgets.calendar").create(s),
       {
