@@ -1,4 +1,4 @@
-@theme "/home/linde/.local/share/rofi/themes/spotlight.rasi"
+@theme "/home/wuz/.local/share/rofi/themes/spotlight-dark.rasi"
 window {
 height: 300px;
 }

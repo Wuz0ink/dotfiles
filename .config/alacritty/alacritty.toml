@@ -1,5 +1,5 @@
 [general]
-import = ["/home/olinde/.config/alacritty/catppuccin/catppuccin-mocha.toml"]
+import = ["/home/wuz/.config/alacritty/catppuccin/catppuccin-mocha.toml"]
 
 [font]
 size = 14
