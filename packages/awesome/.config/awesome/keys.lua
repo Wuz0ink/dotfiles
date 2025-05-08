@@ -299,6 +299,35 @@ keys.globalkeys = gears.table.join(
       end
    ),
 
+  awful.key({ modkey, "Shift", "Control" }, "j",
+      function()
+          if client.focus then
+              local c = client.focus
+              c:move_to_screen(c.screen.index + 1)
+          end
+      end,
+      {description = "move to the next screen (right)", group = "client"}
+  ),
+
+  -- Move focused client to the previous screen (left)
+  awful.key({ modkey, "Shift", "Control" }, "k",
+      function()
+          if client.focus then
+              local c = client.focus
+              c:move_to_screen(c.screen.index - 1)
+          end
+      end,
+      {description = "move to the previous screen (left)", group = "client"}
+  ),
+
+  -- Cycle wallpaper 
+  awful.key({ modkey }, "w",
+      function()
+            awful.spawn.with_shell("/home/antonalf/.config/awesome/cycle-wallpaper.sh")
+      end,
+      {description = "cycle wallpaper", group = "client"}
+  ),
+
    -- =========================================
    -- CLIENT RESIZING
    -- =========================================
@@ -423,11 +452,11 @@ keys.globalkeys = gears.table.join(
    -- =========================================
 
    -- select next layout
-   -- awful.key({modkey}, "space",
-   --    function()
-   --       awful.layout.inc(1)
-   --    end,
-   --    {description = "select next", group = "layout"}
+       -- awful.key({modkey}, "space",
+      -- function()
+       --   awful.layout.inc(1)
+      -- end,
+      -- {description = "select next", group = "layout"}
    -- ),
    -- select previous layout
    awful.key({modkey, "Shift"}, "space",
@@ -452,8 +481,7 @@ keys.globalkeys = gears.table.join(
          end
       end,
       {description = "restore minimized", group = "client"}
-   )
-)
+  ),
 
 
    -- =========================================
@@ -468,7 +496,6 @@ keys.globalkeys = gears.table.join(
       {description = "screenlock", group = "client"}
    )
 )
-
 
 -- ===================================================================
 -- Client Key bindings
@@ -495,6 +522,15 @@ keys.clientkeys = gears.table.join(
       end,
       {description = "close", group = "client"}
    ),
+
+    awful.key({ modkey }, "t",
+        function(c)
+            -- c.floating = false
+            awful.client.floating.toggle(c) 
+            awful.layout.arrange(c.screen)  
+        end,
+    {description = "toggle tiling (disable floating)", group = "client"}
+    ),
 
    -- Minimize
    awful.key({modkey}, "n",

@@ -6,7 +6,7 @@ alias t  "tree --dirsfirst"
 alias ll "exa -lah"
 alias l "exa"
 alias ls "exa"
-alias cat "bat"
+alias cat "batcat"
 alias g "git"
 alias gs "git status"
 alias gb "git branch"
@@ -76,16 +76,55 @@ set -U EDITOR nvim
 # Terminal config
 #set -x TERM xterm-256color
 
-# Rust bin
-set -x PATH $PATH $HOME/.cargo/bin
-
 # Node bin
 set -x PATH $PATH $HOME/.local/bin
 set -x PATH $PATH $HOME/.npm-global/bin
 
+
 # XDG_USER_DIRS
-set -x XDG_DATA_DIRS "/usr/local/share:/usr/share:/var/lib/flatpak/exports/share:/$HOME/.local/share/flatpak/exports/share"
+#set -x XDG_DATA_DIRS "/usr/local/share:/usr/share:/var/lib/flatpak/exports/share:/$HOME/.local/share/flatpak/exports/share"
+
+function ldd
+    bash -c 'source $CC_BASE/aws/scripts/cc-aws-login --environment dev --profile dev-developer && exec fish'
+end
+
+function lds
+    bash -c 'source $CC_BASE/aws/scripts/cc-aws-login --environment dev --profile dev-superuser && exec fish'
+end
+
+function lda
+    bash -c 'source $CC_BASE/aws/scripts/cc-aws-login --environment dev --profile dev-admin && exec fish'
+end
+
+function lsd
+    bash -c 'source $CC_BASE/aws/scripts/cc-aws-login --environment stage --profile stage-developer && exec fish'
+end                                                                                 
+                                                                                    
+function lss                                                                        
+    bash -c 'source $CC_BASE/aws/scripts/cc-aws-login --environment stage --profile stage-superuser && exec fish'
+end                                                                                 
+                                                                                    
+function lsa                                                                        
+    bash -c 'source $CC_BASE/aws/scripts/cc-aws-login --environment stage --profile stage-admin && exec fish'
+end
+
+function lpd
+    bash -c 'source $CC_BASE/aws/scripts/cc-aws-login --environment prod --profile prod-developer && exec fish'
+end
+
+function lps
+    bash -c 'source $CC_BASE/aws/scripts/cc-aws-login --environment prod --profile prod-superuser && exec fish'
+end
+
+function lpa
+    bash -c 'source $CC_BASE/aws/scripts/cc-aws-login --environment prod --profile prod-admin && exec fish'
+end
+
+set -Ux PYENV_ROOT $HOME/.pyenv
+set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
+pyenv init - fish | source
 
 alias vim nvim
+set -x CURITY_OVERRIDE_HOSTNAME "localhost"
 
 starship init fish | source

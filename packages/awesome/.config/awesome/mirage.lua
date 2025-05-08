@@ -22,9 +22,6 @@ local mirage = {}
 
 
 mirage.initialize = function()
-   -- Set Wallpaper
-   gears.wallpaper.maximized(gears.filesystem.get_configuration_dir() .. "/wallpaper/mirage.png")
-
    -- Import components
    require("components.exit-screen")
    require("components.volume-adjust")

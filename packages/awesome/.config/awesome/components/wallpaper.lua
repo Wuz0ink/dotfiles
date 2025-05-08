@@ -19,6 +19,7 @@ local naughty = require("naughty")
 -- Initialization
 -- ===================================================================
 
-local wallpaper_dir = gears.filesystem.get_configuration_dir() .. "/wallpaper"
-local wallpaper = wallpaper_dir .. "/goonies.png"
-awful.spawn.with_shell("feh --bg-fill " .. wallpaper)
+-- local wallpaper_dir = gears.filesystem.get_configuration_dir() .. "/wallpaper"
+-- local wallpaper = wallpaper_dir .. "/goonies.png"
+-- awful.spawn.with_shell("feh --bg-fill " .. wallpaper)
+awful.spawn.with_shell("~/.config/awesome/cycle-wallpaper.sh")

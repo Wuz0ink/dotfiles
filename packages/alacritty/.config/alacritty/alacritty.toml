@@ -1,13 +1,28 @@
-import = ["/home/anton/.config/alacritty/catppuccin/catppuccin-mocha.toml"]
+# import = ["/home/anton/.config/alacritty/catppuccin/catppuccin-latte.toml"]
+# import = ["/home/anton/.config/alacritty/catppuccin/catppuccin-mocha.toml"]
+# import = ["/home/anton/.config/alacritty/catppuccin/catppuccin-macchiato.toml"]
+import = [
+  # uncomment the flavour you want below:
+  # "~/git/dotfiles/packages/alacritty/.config/alacritty/catppuccin/catppuccin-latte.toml"
+  # "~/git/dotfiles/packages/alacritty/.config/alacritty/catppuccin/catppuccin-frappe.toml"
+  # "~/git/dotfiles/packages/alacritty/.config/alacritty/catppuccin/catppuccin-macchiato.toml"
+  "~/git/dotfiles/packages/alacritty/.config/alacritty/catppuccin/catppuccin-mocha.toml"
+]
+
+[env]
+TERM = "xterm-256color"
 
 [font]
 size = 8
 
 [font.normal]
-family = "Hack"
+family = "Hack Nerd Font"
 style = "Regular"
 
 [[keyboard.bindings]]
 action = "SpawnNewInstance"
 key = "Return"
 mods = "Control|Shift"
+
+[window]
+opacity = 0.9

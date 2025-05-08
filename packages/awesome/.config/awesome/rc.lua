@@ -29,14 +29,15 @@ apps = {
    network_manager = "nm-applet", -- recommended: nm-connection-editor
    power_manager = "xfce4-power-manager", -- recommended: xfce4-power-manager
    terminal = "alacritty",
-   launcher = "rofi -normal-window -modi drun -show drun -theme " .. theme_config_dir .. "rofi.rasi",
+   launcher = "rofi -normal-window -modi drun -show drun -theme " .. theme_config_dir .. "spotlight-dark.rasi",
    lock = "i3lock-fancy",
    -- fullscreen screenshot using scrot, add to ~/pictures & clipboard
    screenshot = "scrot -e 'cat $f | xclip -selection clipboard -t image/png -i && mv $f ~/pictures/ 2>/dev/null'",
    -- selected screenshot using maim, add to clipboard
    screenshot_mod = [[bash -c "maim -s --format=png /dev/stdout | xclip -selection clipboard -t image/png -i"]],
    filebrowser = "nautilus",
-   browser = "brave-browser-nightly"
+   --browser = "brave-browser-nightly"
+   browser = "google-chrome"
 }
 
 -- define wireless and ethernet interface names for the network widget
@@ -51,7 +52,7 @@ local run_on_start_up = {
    "start-pulseaudio-x11",
    "redshift -l 59.33:18.06",
    "unclutter",
-   "picom --experimental-backend",
+   "picom",
    "pasystray"
 }
 
