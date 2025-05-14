@@ -49,11 +49,8 @@ network_interfaces = {
 
 -- List of apps to run on start-up
 local run_on_start_up = {
-   "start-pulseaudio-x11",
-   "redshift -l 59.33:18.06",
    "unclutter",
    "picom",
-   "pasystray"
 }
 
 -- Awful shell, used for e.g. network scripts
