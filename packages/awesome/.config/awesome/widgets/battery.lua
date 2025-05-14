@@ -27,6 +27,7 @@ local wibox = require("wibox")
 local clickable_container = require("widgets.clickable-container")
 local gears = require("gears")
 local dpi = require("beautiful").xresources.apply_dpi
+local naughty = require("naughty")
 
 local PATH_TO_ICONS = os.getenv("HOME") .. "/.config/awesome/icons/battery/"
 
@@ -80,12 +81,15 @@ end
 
 local last_battery_check = os.time()
 
-watch("acpi -i", 1,
+watch("acpi -i", 30,
    function(_, stdout)
       local battery_info = {}
       local capacities = {}
+
       for s in stdout:gmatch("[^\r\n]+") do
-         local status, charge_str, time = string.match(s, ".+: (%a+), (%d?%d?%d)%%,?.*")
+         -- local status, charge_str = string.match(s, ".+: (%a+), (%d?%d?%d)%%,?.*")
+         local status, charge_str = string.match(s, ".+: ([%a%s]+), (%d?%d?%d)%%,?.*")
+
          if status ~= nil then
             table.insert(battery_info, {status = status, charge = tonumber(charge_str)})
          else
@@ -101,6 +105,7 @@ watch("acpi -i", 1,
 
       local charge = 0
       local status
+
       for i, batt in ipairs(battery_info) do
          if batt.charge >= charge then
             status = batt.status -- use most charged battery status
@@ -110,6 +115,10 @@ watch("acpi -i", 1,
          charge = charge + batt.charge * capacities[i]
       end
       charge = charge / capacity
+
+      if status == "Not charging" and charge >= 98 then
+         status = "Full"
+      end
 
       if (charge >= 0 and charge < 15) then
          if status ~= "Charging" and os.difftime(os.time(), last_battery_check) > 300 then
@@ -122,20 +131,24 @@ watch("acpi -i", 1,
 
       local battery_icon_name = "battery"
 
-      if status == "Charging" or status == "Full" then
+      if status == "Full" then
          battery_icon_name = battery_icon_name .. "-charging"
       end
 
-      local rounded_charge = math.floor(charge / 10) * 10
-      if (rounded_charge == 0) then
-         battery_icon_name = battery_icon_name .. "-outline"
-      elseif (rounded_charge ~= 100) then
-         battery_icon_name = battery_icon_name .. "-" .. rounded_charge
+      if status == "Charging" then
+         local rounded_charge = math.floor(charge / 10) * 10
+         if (rounded_charge == 0) then
+            battery_icon_name = battery_icon_name .. "-outline"
+         elseif (rounded_charge ~= 100) then
+            battery_icon_name = battery_icon_name .. "-" .. rounded_charge
+         end
       end
 
       widget.icon:set_image(PATH_TO_ICONS .. battery_icon_name .. ".svg")
       -- Update popup text
-      battery_popup.text = string.gsub(stdout, "\n$", "")
+      -- battery_popup.text = string.gsub(stdout, "\n$", "")
+      battery_popup.text = string.format("Status: %s\nCharge: %.1f%%", status, charge)
+
       collectgarbage("collect")
    end,
    widget

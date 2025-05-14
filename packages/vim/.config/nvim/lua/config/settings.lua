@@ -83,12 +83,22 @@ keymap.set('n', '<leader>p', '"0p')
 keymap.set('n', '<leader>m', ':MarkdownPreview<CR>', { silent = true })
 keymap.set('n', '<leader>p', ':PlantumlOpen<CR>', { silent = true })
 
+vim.api.nvim_set_keymap('n', '<Leader>g', ':Gen Chat<Space>', { noremap = true, silent = true })
+
+vim.api.nvim_create_user_command("RunScriptAndClose", function()
+  local script_path = "~/git/curity-cloud/docker/curity/scripts/docker-sync-local-frontend"
+
+  vim.cmd("FloatermNew --name=runner --autoclose=1 bash " .. script_path)
+end, {})
+
+vim.api.nvim_set_keymap('n', '<Leader>s', ':RunScriptAndClose<CR>', { noremap = true, silent = true })
+
 vim.filetype.add({
   extension = {
     puml = "plantuml",
     plantuml = "plantuml",
     uml = "plantuml",
     iuml = "plantuml",
-    md = "markdown",  
+    md = "markdown",
   },
 })

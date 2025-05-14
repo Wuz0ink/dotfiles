@@ -44,7 +44,7 @@ apps = {
 -- use `ip link` command to determine these
 network_interfaces = {
    wlan = 'wlp0s20f3',
-   lan = 'enp1s0'
+   lan = 'enp0s31f6'
 }
 
 -- List of apps to run on start-up

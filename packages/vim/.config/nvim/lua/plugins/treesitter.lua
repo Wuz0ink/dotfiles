@@ -24,11 +24,9 @@ return {
 					"go",
 					"css",
 					"html",
+					"javascript",
+					"typescript",
 					"lua"
-				},
-				autotag = {
-					enable = true,
-					enable_close_on_slash = false
 				},
 			})
 		end,
