@@ -15,6 +15,7 @@ alias gl "git l"
 alias pr "gh pr"
 alias wtc 'curl -Ss http://whatthecommit.com/index.txt | xargs -0 git commit -m '
 alias vim nvim
+alias hypr "start-hyprland"
 
 # Link binaries w/ stow to ~/.local/bin
 function lnbin

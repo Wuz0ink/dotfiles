@@ -1,7 +1,7 @@
 {
 	"coc.preferences.formatOnSave": true,
 	"inlayHint.enable": false,
-	"suggest.virtualText": true,
+	"suggest.virtualText": false,
 	"diagnostic.virtualText": false,
 	"diagnostic.virtualTextCurrentLineOnly": false,
 	"codeLens.enable": false,
@@ -39,5 +39,7 @@
 		"rounded": true,
 		"winblend": 0
 	},
-	"typescript.format.enable": true
+	"typescript.format.enable": true,
+	"diagnostic.floatAutoHide": true,
+	"suggest.enablePreview": false
 }
